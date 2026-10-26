@@ -1,0 +1,37 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+*.tfvars
+*.tfvars.json
+.env
+.env.*
+__pycache__/
+*.pyc
+
+
+*.zip
+*_result.json
+hr-demo-result.json
+hr-verification.json
+hr-smoke-rule.txt
+hr-errors/
+*.auto.tf.json
+lifecycle-plan-summary.json
+
+# Rebuilt from source by 03_ワークフロー/02_資材/tools/deployment/build.py
+02_資材/02_temporary/terraform/build/
+.pytest_cache/
+.coverage
+test-results/
+02_資材/02_temporary/terraform/tests/
+
+# Saved plans and preparation payloads may contain private Terraform inputs.
+/saved-plan/
+/preparation/
+/workflow-results/
+/02_資材/01_persistent/workflow-retained-imports.tf
+/02_資材/02_temporary/terraform/workflow-retained-imports.tf
+

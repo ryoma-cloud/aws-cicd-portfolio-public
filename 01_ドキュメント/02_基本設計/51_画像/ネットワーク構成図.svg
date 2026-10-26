@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="640" viewBox="0 0 1100 800" role="img" aria-labelledby="title desc"><title id="title">入館証発行管理システム｜ネットワーク全体構成</title><desc id="desc">2AZのVPC配置と、API受付、非同期処理、AWSサービス接続、SFTP転送を一枚に示す。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#404040"/></marker></defs><rect width="1100" height="800" fill="#ffffff"/><g stroke="#eeeeee" stroke-width="0.5">
+<path d="M8 82 V790"/>
+<path d="M28 82 V790"/>
+<path d="M48 82 V790"/>
+<path d="M68 82 V790"/>
+<path d="M88 82 V790"/>
+<path d="M108 82 V790"/>
+<path d="M128 82 V790"/>
+<path d="M148 82 V790"/>
+<path d="M168 82 V790"/>
+<path d="M188 82 V790"/>
+<path d="M208 82 V790"/>
+<path d="M228 82 V790"/>
+<path d="M248 82 V790"/>
+<path d="M268 82 V790"/>
+<path d="M288 82 V790"/>
+<path d="M308 82 V790"/>
+<path d="M328 82 V790"/>
+<path d="M348 82 V790"/>
+<path d="M368 82 V790"/>
+<path d="M388 82 V790"/>
+<path d="M408 82 V790"/>
+<path d="M428 82 V790"/>
+<path d="M448 82 V790"/>
+<path d="M468 82 V790"/>
+<path d="M488 82 V790"/>
+<path d="M508 82 V790"/>
+<path d="M528 82 V790"/>
+<path d="M548 82 V790"/>
+<path d="M568 82 V790"/>
+<path d="M588 82 V790"/>
+<path d="M608 82 V790"/>
+<path d="M628 82 V790"/>
+<path d="M648 82 V790"/>
+<path d="M668 82 V790"/>
+<path d="M688 82 V790"/>
+<path d="M708 82 V790"/>
+<path d="M728 82 V790"/>
+<path d="M748 82 V790"/>
+<path d="M768 82 V790"/>
+<path d="M788 82 V790"/>
+<path d="M808 82 V790"/>
+<path d="M828 82 V790"/>
+<path d="M848 82 V790"/>
+<path d="M868 82 V790"/>
+<path d="M888 82 V790"/>
+<path d="M908 82 V790"/>
+<path d="M928 82 V790"/>
+<path d="M948 82 V790"/>
+<path d="M968 82 V790"/>
+<path d="M988 82 V790"/>
+<path d="M1008 82 V790"/>
+<path d="M1028 82 V790"/>
+<path d="M1048 82 V790"/>
+<path d="M1068 82 V790"/>
+<path d="M1088 82 V790"/>
+<path d="M8 90 H1092"/>
+<path d="M8 110 H1092"/>
+<path d="M8 130 H1092"/>
+<path d="M8 150 H1092"/>
+<path d="M8 170 H1092"/>
+<path d="M8 190 H1092"/>
+<path d="M8 210 H1092"/>
+<path d="M8 230 H1092"/>
+<path d="M8 250 H1092"/>
+<path d="M8 270 H1092"/>
+<path d="M8 290 H1092"/>
+<path d="M8 310 H1092"/>
+<path d="M8 330 H1092"/>
+<path d="M8 350 H1092"/>
+<path d="M8 370 H1092"/>
+<path d="M8 390 H1092"/>
+<path d="M8 410 H1092"/>
+<path d="M8 430 H1092"/>
+<path d="M8 450 H1092"/>
+<path d="M8 470 H1092"/>
+<path d="M8 490 H1092"/>
+<path d="M8 510 H1092"/>
+<path d="M8 530 H1092"/>
+<path d="M8 550 H1092"/>
+<path d="M8 570 H1092"/>
+<path d="M8 590 H1092"/>
+<path d="M8 610 H1092"/>
+<path d="M8 630 H1092"/>
+<path d="M8 650 H1092"/>
+<path d="M8 670 H1092"/>
+<path d="M8 690 H1092"/>
+<path d="M8 710 H1092"/>
+<path d="M8 730 H1092"/>
+<path d="M8 750 H1092"/>
+<path d="M8 770 H1092"/>
+<path d="M8 790 H1092"/>
+</g>
+<rect x="8" y="8" width="1084" height="48" fill="#e6e6e6" stroke="#555555" stroke-width="1"/>
+<rect x="8" y="8" width="1084" height="782" fill="none" stroke="#555555" stroke-width="1"/><g font-family="Meiryo, Yu Gothic, Noto Sans CJK JP, sans-serif" fill="#202020">
+<text x="24" y="40" font-size="25" font-weight="bold" fill="#202020">入館証発行管理システム｜ネットワーク全体構成</text>
+<text x="24" y="73" font-size="19" fill="#202020">東京 ap-northeast-1  /  実線：主要通信　破線：サービスによる起動</text>
+<rect x="24" y="116" width="700" height="577" rx="0" fill="#f6f6f6" stroke="#666666" stroke-width="1"/>
+<text x="42" y="157" font-size="23" font-weight="bold" fill="#202020">VPC 10.20.0.0/16</text>
+<rect x="42" y="167" width="325" height="354" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<rect x="381" y="167" width="325" height="354" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="56" y="196" font-size="21" fill="#202020">AZ ap-northeast-1a</text>
+<rect x="54" y="211" width="301" height="113" rx="0" fill="#edf3e8" stroke="#666666" stroke-width="1"/>
+<text x="72" y="243" font-size="19" fill="#202020">Public 10.20.1.0/24</text>
+<rect x="54" y="340" width="301" height="168" rx="0" fill="#edf1f7" stroke="#666666" stroke-width="1"/>
+<text x="72" y="372" font-size="19" fill="#202020">Private 10.20.11.0/24</text>
+<rect x="66" y="384" width="277" height="43" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="84" y="416" font-size="20" fill="#202020">Fargate Web（自動増減）</text>
+<rect x="66" y="455" width="277" height="43" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="84" y="487" font-size="20" fill="#202020">Aurora Writer</text>
+<text x="395" y="196" font-size="21" fill="#202020">AZ ap-northeast-1c</text>
+<rect x="393" y="211" width="301" height="113" rx="0" fill="#edf3e8" stroke="#666666" stroke-width="1"/>
+<text x="411" y="243" font-size="19" fill="#202020">Public 10.20.2.0/24</text>
+<rect x="393" y="340" width="301" height="168" rx="0" fill="#edf1f7" stroke="#666666" stroke-width="1"/>
+<text x="411" y="372" font-size="19" fill="#202020">Private 10.20.12.0/24</text>
+<rect x="405" y="384" width="277" height="43" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="423" y="416" font-size="20" fill="#202020">Fargate Web（自動増減）</text>
+<rect x="405" y="455" width="277" height="43" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="423" y="487" font-size="20" fill="#202020">Aurora Reader</text>
+<rect x="124" y="259" width="319" height="48" rx="0" fill="#e4ebf2" stroke="#666666" stroke-width="1"/>
+<text x="142" y="291" font-size="20" fill="#202020">ALB（両 Public に配置）</text>
+<rect x="480" y="259" width="213" height="48" rx="0" fill="#fff3d9" stroke="#666666" stroke-width="1"/>
+<text x="498" y="291" font-size="19" fill="#202020">SFTP モック EC2</text>
+<rect x="154" y="84" width="260" height="48" rx="0" fill="#ffffff" stroke="#666666" stroke-width="1"/>
+<text x="172" y="116" font-size="21" fill="#202020">ユーザ → IGW</text>
+<path d="M284 132 V259" fill="none" stroke="#404040" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="289" y="233" font-size="18" fill="#202020">HTTP 80</text>
+<path d="M202 307 H350 V405 H343 M420 307 V330 H695 V405 H682" fill="none" stroke="#404040" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="450" y="329" font-size="16" fill="#202020">HTTP 8080</text>
+<text x="68" y="447" font-size="17" fill="#202020">Web → Reader（TLS 5432）</text>
+<text x="405" y="447" font-size="16" fill="#202020">Writer / Reader は障害時に交替</text>
+<rect x="42" y="553" width="325" height="115" rx="0" fill="#edf1f7" stroke="#666666" stroke-width="1"/>
+<text x="60" y="585" font-size="20" fill="#202020">VPC 接続 Lambda</text>
+<text x="60" y="615" font-size="20" fill="#202020">登録 / 日次送信 / 結果反映</text>
+<text x="60" y="645" font-size="20" fill="#202020">両 Private に接続</text>
+<rect x="391" y="553" width="315" height="115" rx="0" fill="#edf1f7" stroke="#666666" stroke-width="1"/>
+<text x="409" y="585" font-size="20" fill="#202020">VPC Endpoint</text>
+<text x="409" y="615" font-size="20" fill="#202020">Interface：AWS API</text>
+<text x="409" y="645" font-size="20" fill="#202020">Gateway：S3</text>
+<path d="M205 553 V499" fill="none" stroke="#404040" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="214" y="545" font-size="17" fill="#202020">更新 / TLS 5432</text>
+<path d="M367 610 H391" fill="none" stroke="#404040" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="782" y="149" font-size="22" font-weight="bold" fill="#202020">VPC 外の AWS サービス</text>
+<rect x="782" y="167" width="294" height="149" rx="0" fill="#f4f4f4" stroke="#666666" stroke-width="1"/>
+<text x="800" y="199" font-size="20" fill="#202020">ID 管理モック</text>
+<text x="800" y="229" font-size="20" fill="#202020">↓ HTTPS / IAM 署名</text>
+<text x="800" y="259" font-size="20" fill="#202020">API Gateway</text>
+<text x="800" y="289" font-size="20" fill="#202020">↓ 受付 Lambda → SQS</text>
+<rect x="782" y="342" width="294" height="95" rx="0" fill="#f4f4f4" stroke="#666666" stroke-width="1"/>
+<text x="800" y="374" font-size="20" fill="#202020">Scheduler / EventBridge</text>
+<text x="800" y="404" font-size="20" fill="#202020">日次起動・転送結果</text>
+<path d="M782 290 H750 V532 H205 V553 M782 390 H750" fill="none" stroke="#404040" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="786" y="474" font-size="18" fill="#202020">SQS / EventBridge が起動</text>
+<rect x="782" y="553" width="294" height="115" rx="0" fill="#f4f4f4" stroke="#666666" stroke-width="1"/>
+<text x="800" y="585" font-size="20" fill="#202020">ECR / Logs / Secrets</text>
+<text x="800" y="615" font-size="20" fill="#202020">Transfer API / S3</text>
+<text x="800" y="645" font-size="20" fill="#202020">HTTPS 443</text>
+<path d="M706 610 H782" fill="none" stroke="#404040" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="24" y="715" width="1052" height="63" rx="0" fill="#fff8e9" stroke="#666666" stroke-width="1"/>
+<text x="42" y="754" font-size="22" font-weight="bold" fill="#202020">S3 → Transfer Family Connector → SFTP モック（22）</text>
+<text x="782" y="740" font-size="18" fill="#202020">サービス管理経路で転送</text>
+<text x="782" y="765" font-size="18" fill="#202020">Lambda は転送要求のみ</text>
+<text x="42" y="686" font-size="17" fill="#202020">Private：Public IP なし / NAT なし / インターネット向け既定ルートなし</text>
+<text x="390" y="157" font-size="18" fill="#202020">Web：全体で2～4タスク</text></g></svg>

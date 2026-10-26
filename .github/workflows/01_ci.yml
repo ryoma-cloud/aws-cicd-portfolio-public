@@ -1,0 +1,64 @@
+name: 01_CIテスト
+# 自動起動・手動起動の条件。環境変更系は手動起動のみ。
+'on':
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['02_資材/**', '03_ワークフロー/02_資材/**', '.github/**', '04_テスト/workflows/**']
+  pull_request: {}
+# GitHubトークンの権限。id-tokenはAWS OIDC認証で使用する。
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    # main等の対象リビジョンをUbuntuランナーへ取得する。
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    # Pythonの構文確認に使うバージョンを準備する。
+    - uses: actions/setup-python@v7
+      with:
+        python-version: '3.13'
+    # Pythonファイルをコンパイルし構文エラーを検出する。業務処理は実行しない。
+    - name: Pythonの構文確認
+      run: python -m compileall -q 02_資材/02_temporary 03_ワークフロー/02_資材
+    # 模擬CLIによる入力分岐・処理順序・失敗時停止を検証する。AWS認証は行わない。
+    - name: ワークフロー検証用ライブラリの導入
+      run: python -m pip install PyYAML==6.0.3
+    - name: ワークフローの模擬実行テスト（AWS接続なし）
+      run: python -m unittest discover -s 04_テスト/workflows -p 'test_*.py' -v
+    # 書式・定義検証に使うTerraform CLIを準備する。
+    - uses: hashicorp/setup-terraform@v4
+      with:
+        terraform_version: 1.16.2
+        terraform_wrapper: false
+    # 両環境のTerraform書式を検査する。自動整形による書換えは行わない。
+    - name: Terraformの書式確認
+      shell: python
+      run: |
+        import subprocess
+        for directory in ('02_資材/01_persistent', '02_資材/02_temporary/terraform'):
+            subprocess.run(['terraform', f'-chdir={directory}', 'fmt', '-check', '-recursive'], check=True)
+    # ハッシュ参照を満たす空ZIPをローカル作成する。デプロイ用ZIPではない。
+    - name: Terraform validate用のダミーZIPを用意
+      shell: python
+      run: |
+        from pathlib import Path
+        from zipfile import ZipFile
+        root = Path('02_資材/02_temporary/terraform/build')
+        root.mkdir(parents=True, exist_ok=True)
+        for name in ('employee_intake','employee_register','request_batch','transfer_result','resend','id_mock'):
+            with ZipFile(root / (name + '.zip'), 'w'):
+                pass
+    # backendに接続せずproviderを準備し、Terraform定義の整合性を検証する。
+    - name: Terraform定義の検証（AWS変更なし）
+      shell: python
+      run: |
+        import subprocess
+        for directory in ('02_資材/01_persistent', '02_資材/02_temporary/terraform'):
+            subprocess.run(['terraform', f'-chdir={directory}', 'init', '-backend=false', '-input=false', '-lockfile=readonly'], check=True)
+            subprocess.run(['terraform', f'-chdir={directory}', 'validate'], check=True)
+

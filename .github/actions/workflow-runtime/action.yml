@@ -1,0 +1,31 @@
+name: ワークフロー実行環境
+description: Python・Terraformと補助処理に必要なAWS SDK・暗号ライブラリを準備
+runs:
+  using: composite
+  steps:
+  # すべての補助モジュールを同じPythonバージョンで動かす。
+  - uses: actions/setup-python@v7
+    with:
+      python-version: '3.13'
+  # Pythonから直接呼び出すTerraform CLIを準備する。
+  - uses: hashicorp/setup-terraform@v4
+    with:
+      terraform_version: 1.16.2
+      terraform_wrapper: false
+  # ロックファイルの制約に従い、AWS SDKとSFTP鍵生成ライブラリを導入する。
+  - name: Python依存を導入
+    shell: python
+    run: |
+      import subprocess
+      import sys
+      subprocess.run([sys.executable, '-m', 'pip', 'install', '-c', '02_資材/02_temporary/app/requirements.lock', 'boto3', 'cryptography'], check=True)
+  # GITHUB_ENVに書き込み、後続stepがtools・commonなどをimportできるようにする。
+  - name: モジュール検索先を設定
+    shell: python
+    run: |
+      import os
+      from pathlib import Path
+      root = Path(os.environ['GITHUB_WORKSPACE'])
+      paths = ('03_ワークフロー/02_資材', '02_資材/02_temporary', '02_資材/02_temporary/app')
+      with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as output:
+          output.write('PYTHONPATH=' + os.pathsep.join(str(root / path) for path in paths) + '\n')

@@ -1,0 +1,55 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>入館証発行管理システム：画面モック</title><style>body{margin:0;background:#fff}</style></head><body><div id="badge-status-mock">
+  <style>
+    #badge-status-mock {font-family:Arial,'Noto Sans JP',sans-serif;color:#26354a;background:#fff;font-size:14px;line-height:1.6;border:1px solid #dce4ee;border-radius:6px;overflow:hidden}
+    #badge-status-mock * {box-sizing:border-box}
+    #badge-status-mock header {background:#175ca5;color:#fff;padding:17px 26px;font-weight:500;font-size:17px}
+    #badge-status-mock main {padding:26px}
+    #badge-status-mock h1 {font-size:22px;font-weight:500;margin:0 0 22px}
+    #badge-status-mock form {background:#f5f8fc;border:1px solid #dce4ee;border-radius:4px;padding:20px;display:flex;align-items:end;gap:16px;flex-wrap:wrap}
+    #badge-status-mock label {display:flex;flex-direction:column;gap:7px;font-weight:500;flex:1 1 180px}
+    #badge-status-mock input,#badge-status-mock select {min-width:0;width:100%;font:inherit;color:#26354a;background:white;padding:10px 12px;border:1px solid #aebdce;border-radius:4px}
+    #badge-status-mock button {font:inherit;border-radius:4px;padding:10px 18px;min-height:44px;border:1px solid #175ca5;background:#175ca5;color:white}
+    #badge-status-mock button.secondary {background:white;color:#175ca5}
+    #badge-status-mock .actions {display:flex;gap:8px}
+    #badge-status-mock .resultbar {margin:25px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    #badge-status-mock h2 {font-size:17px;font-weight:500;margin:0}
+    #badge-status-mock .scroll {overflow-x:auto;border:1px solid #dce4ee;border-radius:4px}
+    #badge-status-mock table {width:100%;border-collapse:collapse;white-space:nowrap;font-size:14px}
+    #badge-status-mock th {background:#edf3fa;font-weight:500;text-align:left}
+    #badge-status-mock th,#badge-status-mock td {padding:14px 16px;border-bottom:1px solid #e3e9f0}
+    #badge-status-mock tr:last-child td {border-bottom:0}
+    #badge-status-mock .status {display:inline-block;border-radius:4px;padding:3px 10px;min-width:82px;text-align:center;font-weight:500}
+    #badge-status-mock .wait {background:#edf0f4;color:#46566b}
+    #badge-status-mock .sent {background:#e6f4ed;color:#226745}
+    #badge-status-mock .failed {background:#fdebea;color:#ad3434}
+    #badge-status-mock .meta {color:#627187;font-size:12px}
+    #badge-status-mock footer {border-top:1px solid #e3e9f0;padding:12px 26px;color:#627187;font-size:12px}
+    @media(max-width:600px) {#badge-status-mock main {padding:18px 14px}#badge-status-mock header {padding:15px 14px;font-size:15px}#badge-status-mock form {padding:14px;gap:12px}#badge-status-mock label {flex-basis:100%}#badge-status-mock .actions {width:100%}#badge-status-mock .actions button {flex:1}#badge-status-mock input,#badge-status-mock select {font-size:16px}#badge-status-mock footer {padding:12px 14px}}
+  </style>
+  <header>入館証発行管理システム</header>
+  <main>
+    <h1>発行状況参照</h1>
+    <form>
+      <label style="flex-grow:2">氏名・社員番号・入館証番号<input name="query" placeholder="例：山田／100001／C000000000000001" autocomplete="off" aria-describedby="badge-search-help"></label>
+      <label>処理状況<select name="status"><option value="">すべて</option>入館証発行依頼待ち</option><option>入館証発行依頼済み</option><option>入館証発行依頼失敗</option></select></label>
+      <div class="actions"><button class="cursor-interaction" type="submit">検索</button><button class="secondary cursor-interaction" type="reset">クリア</button></div>
+    </form>
+    <p id="badge-search-help" class="meta">氏名は部分一致、社員番号・入館証番号は完全一致で検索します。</p>
+    <div class="resultbar"><h2>発行対象一覧 <span data-count aria-live="polite">（6件）</span></h2><span class="meta">受付日時の新しい順／更新日時：日本時間</span></div>
+    <div class="scroll"><table aria-label="入館証の発行状況"><thead><tr><th>社員番号</th><th>氏名</th><th>所属会社名</th><th>入館証番号</th><th>処理状況</th><th>更新日時</th></tr></thead><tbody></tbody></table></div>
+  </main>
+  <script>
+    (()=>{
+      const root=document.getElementById('badge-status-mock');
+      const form=root.querySelector('form');
+      const rows=[["100006","伊藤 葵","C000000000000006","入館証発行依頼待ち","wait","2026/10/12 12:35:00","テスト会社B"],["100005","高橋 健","C000000000000005","入館証発行依頼済み","sent","2026/10/12 12:34:00","テスト会社A"],["100004","鈴木 美咲","C000000000000004","入館証発行依頼失敗","failed","2026/10/12 12:33:00","テスト会社B"],["100003","田中 一郎","C000000000000003","入館証発行依頼済み","sent","2026/10/12 12:32:00","テスト会社A"],["100002","佐藤 花子","C000000000000002","入館証発行依頼待ち","wait","2026/10/12 12:31:00","テスト会社B"],["100001","山田 太郎","C000000000000001","入館証発行依頼待ち","wait","2026/10/12 12:30:00","テスト会社A"]];
+      function render(items){
+        root.querySelector('tbody').innerHTML=items.length?items.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[6]}</td><td>${r[2]}</td><td><span class="status ${r[4]}">${r[3]}</span></td><td>${r[5]}</td></tr>`).join(''):'<tr><td colspan="6">該当する発行対象はありません。</td></tr>';
+        root.querySelector('[data-count]').textContent=`（${items.length}件）`;
+      }
+      form.addEventListener('submit',e=>{e.preventDefault();const query=form.elements.query.value.trim();const status=form.elements.status.value;render(rows.filter(r=>(!query||r[0]===query||r[1].includes(query)||r[2]===query)&&(!status||r[3]===status)));});
+      form.addEventListener('reset',()=>render(rows));render(rows);
+    })();
+  </script>
+</div>
+</body></html>

@@ -1,0 +1,72 @@
+name: 02_環境操作
+run-name: 環境操作 / ${{ inputs.stack }} / ${{ inputs.operation }} / ${{ inputs.mode }}
+# 自動起動・手動起動の条件。環境変更系は手動起動のみ。
+'on':
+  workflow_dispatch:
+    inputs:
+      stack:
+        description: '対象環境：persistent=常設環境 / temporary=一時環境'
+        required: true
+        type: choice
+        options: [persistent, temporary]
+        default: temporary
+      operation:
+        description: '操作：apply=作成・変更 / destroy=削除'
+        required: true
+        type: choice
+        options: [apply, destroy]
+        default: apply
+      mode:
+        description: 'planで確認 / applyで実行'
+        required: true
+        type: choice
+        options: [plan, apply]
+        default: plan
+# GitHubトークンの権限。id-tokenはAWS OIDC認証で使用する。
+permissions:
+  contents: read
+  id-token: write
+# 常設・一時の操作が競合しないよう共通グループで直列化する。
+concurrency:
+  group: portfolio-environment
+  cancel-in-progress: false
+  queue: max
+jobs:
+  run:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    # Repository Variables/Secretsから認証先・Stateバケット・通知先を渡す。
+    env:
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_EC2_METADATA_DISABLED: 'true'
+      TF_STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+      NOTIFICATION_EMAIL: ${{ vars.NOTIFICATION_EMAIL }}
+    steps:
+    # main等の対象リビジョンをUbuntuランナーへ取得する。
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    # 共通ActionでPython・Terraform・依存ライブラリ・PYTHONPATHを準備する。
+    - uses: ./.github/actions/workflow-runtime
+    # OIDCでAWSロールを引き受け、このジョブだけの一時認証情報を得る。
+    - uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ap-northeast-1
+    # 入力は環境変数から読み、シェル展開せず既存の実行制御へ渡す。
+    - name: 環境操作 (${{ inputs.stack }} / ${{ inputs.operation }} / ${{ inputs.mode }})
+      env:
+        TARGET_STACK: ${{ inputs.stack }}
+        TARGET_OPERATION: ${{ inputs.operation }}
+        EXECUTION_MODE: ${{ inputs.mode }}
+      shell: python
+      run: |
+        import os
+        import subprocess
+        import sys
+        subprocess.run([
+            sys.executable, '-m', 'tools.environment',
+            os.environ['TARGET_STACK'], os.environ['TARGET_OPERATION'],
+            '--mode', os.environ['EXECUTION_MODE'],
+        ], check=True)

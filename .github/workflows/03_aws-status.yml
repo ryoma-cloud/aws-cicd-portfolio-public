@@ -1,0 +1,45 @@
+name: 03_Terraform状態確認
+# 自動起動・手動起動の条件。環境変更系は手動起動のみ。
+'on':
+  workflow_dispatch: {}
+# GitHubトークンの権限。id-tokenはAWS OIDC認証で使用する。
+permissions:
+  contents: read
+  id-token: write
+# 常設・一時の操作が競合しないよう共通グループで直列化する。
+concurrency:
+  group: portfolio-environment
+  cancel-in-progress: false
+  queue: max
+jobs:
+  run:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    # Repository Variables/Secretsから認証先・Stateバケット・通知先を渡す。
+    env:
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_EC2_METADATA_DISABLED: 'true'
+      TF_STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+      NOTIFICATION_EMAIL: ${{ vars.NOTIFICATION_EMAIL }}
+    steps:
+    # main等の対象リビジョンをUbuntuランナーへ取得する。
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    # 共通ActionでPython・Terraform・依存ライブラリ・PYTHONPATHを準備する。
+    - uses: ./.github/actions/workflow-runtime
+    # OIDCでAWSロールを引き受け、このジョブだけの一時認証情報を得る。
+    - uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ap-northeast-1
+    # 常設のState一覧と定義差分を確認する。AWS変更は適用しない。
+    - name: persistent Terraform plan
+      run: python -m tools.environment persistent status
+    # 常設の確認が失敗しても、一時の確認を試みる（キャンセル時は除く）。
+    - name: temporary Terraform plan
+      if: success() || failure()
+      run: python -m tools.environment temporary status
+
+

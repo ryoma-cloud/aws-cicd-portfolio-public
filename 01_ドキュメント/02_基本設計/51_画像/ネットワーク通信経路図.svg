@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="687" viewBox="0 0 1100 1050" role="img" aria-labelledby="title desc"><title id="title">ネットワーク構成｜主要通信</title><desc id="desc">Web、API受付、PrivateからのAWS API接続、SFTP転送の経路を分けて示す。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#45647d"/></marker></defs><rect width="1100" height="1050" fill="#ffffff"/><g font-family="Noto Sans CJK JP, sans-serif" fill="#19354b">
+<text x="32" y="45" font-size="30" fill="#19354b">ネットワーク構成｜主要通信</text>
+<text x="32" y="80" font-size="22" fill="#19354b">矢印：主要な通信・データの流れ。起動経路は本文に記載。</text>
+<text x="32" y="130" font-size="24" fill="#19354b">1  Web 参照</text>
+<rect x="32" y="158" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="50" y="190" font-size="21" fill="#19354b">ユーザ</text>
+<rect x="302" y="158" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="320" y="190" font-size="21" fill="#19354b">IGW → ALB</text>
+<text x="320" y="220" font-size="21" fill="#19354b">Public</text>
+<rect x="572" y="158" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="590" y="190" font-size="21" fill="#19354b">Fargate Web</text>
+<text x="590" y="220" font-size="21" fill="#19354b">Private</text>
+<rect x="842" y="158" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="860" y="190" font-size="21" fill="#19354b">Aurora Reader</text>
+<text x="860" y="220" font-size="21" fill="#19354b">Private</text>
+<path d="M258 205 H292" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="261" y="148" font-size="18" fill="#19354b">HTTP 80</text>
+<path d="M528 205 H562" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="531" y="148" font-size="18" fill="#19354b">HTTP 8080</text>
+<path d="M798 205 H832" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="801" y="148" font-size="18" fill="#19354b">TLS 5432</text>
+<text x="32" y="287" font-size="21" fill="#19354b">ALB → Web は ALB の SG のみ許可。Web タスクに Public IP は付けない。</text>
+<text x="32" y="340" font-size="24" fill="#19354b">2  社員情報受付</text>
+<rect x="32" y="368" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="50" y="400" font-size="21" fill="#19354b">ID 管理モック</text>
+<text x="50" y="430" font-size="21" fill="#19354b">VPC 外</text>
+<rect x="302" y="368" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="320" y="400" font-size="21" fill="#19354b">API Gateway</text>
+<text x="320" y="430" font-size="21" fill="#19354b">VPC 外</text>
+<rect x="572" y="368" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="590" y="400" font-size="21" fill="#19354b">受付 Lambda</text>
+<text x="590" y="430" font-size="21" fill="#19354b">VPC 接続なし</text>
+<rect x="842" y="368" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="860" y="400" font-size="21" fill="#19354b">SQS</text>
+<text x="860" y="430" font-size="21" fill="#19354b">VPC 外</text>
+<path d="M258 415 H292" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="261" y="358" font-size="18" fill="#19354b">HTTPS 443</text>
+<path d="M528 415 H562" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="531" y="358" font-size="18" fill="#19354b">呼出</text>
+<path d="M798 415 H832" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="801" y="358" font-size="18" fill="#19354b">登録</text>
+<text x="32" y="497" font-size="21" fill="#19354b">API は IAM 署名。SQS が登録 Lambda を起動し、Aurora Writer に登録する。</text>
+<text x="32" y="550" font-size="24" fill="#19354b">3  Private から AWS サービスへ</text>
+<rect x="32" y="578" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="50" y="610" font-size="21" fill="#19354b">Fargate / Lambda</text>
+<text x="50" y="640" font-size="21" fill="#19354b">Private</text>
+<rect x="302" y="578" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="320" y="610" font-size="21" fill="#19354b">Interface</text>
+<text x="320" y="640" font-size="21" fill="#19354b">Endpoint</text>
+<rect x="572" y="578" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="590" y="610" font-size="21" fill="#19354b">AWS API</text>
+<text x="590" y="640" font-size="21" fill="#19354b">VPC 外</text>
+<path d="M258 625 H292" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="261" y="568" font-size="18" fill="#19354b">HTTPS 443</text>
+<path d="M528 625 H562" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="531" y="568" font-size="18" fill="#19354b">HTTPS 443</text>
+<text x="32" y="707" font-size="21" fill="#19354b">対象：ECR / Logs / Secrets Manager / Transfer API。S3 は Gateway Endpoint 経由。</text>
+<text x="32" y="760" font-size="24" fill="#19354b">4  ファイル転送</text>
+<rect x="32" y="788" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="50" y="820" font-size="21" fill="#19354b">S3</text>
+<text x="50" y="850" font-size="21" fill="#19354b">CSV 保存</text>
+<rect x="302" y="788" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="320" y="820" font-size="21" fill="#19354b">Transfer Family</text>
+<text x="320" y="850" font-size="21" fill="#19354b">SFTP Connector</text>
+<rect x="572" y="788" width="226" height="92" rx="10" fill="#f2f6fb" stroke="#a7bdce" stroke-width="1.5"/>
+<text x="590" y="820" font-size="21" fill="#19354b">対向 SFTP</text>
+<text x="590" y="850" font-size="21" fill="#19354b">モック EC2</text>
+<path d="M258 835 H292" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="261" y="778" font-size="18" fill="#19354b">ファイル取得</text>
+<path d="M528 835 H562" fill="none" stroke="#45647d" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="531" y="778" font-size="18" fill="#19354b">SFTP 22</text>
+<text x="32" y="917" font-size="21" fill="#19354b">Connector のサービス管理経路で転送。Lambda は Transfer API で転送を要求する。</text>
+<text x="32" y="975" font-size="22" fill="#19354b">日次起動・転送結果：Scheduler / EventBridge → VPC 接続 Lambda。</text>
+<text x="32" y="1012" font-size="22" fill="#19354b">Private のインターネット向けデフォルトルートなし / NAT Gateway なし。</text>
+</g></svg>

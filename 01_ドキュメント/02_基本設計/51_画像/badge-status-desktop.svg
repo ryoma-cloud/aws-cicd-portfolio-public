@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="650" viewBox="0 0 1280 650" role="img" aria-labelledby="title desc">
+<title id="title">発行状況参照画面のモック</title>
+<desc id="desc">氏名・社員番号・入館証番号を入力する単一検索欄と処理状況の絞り込み、発行対象一覧を表示する。</desc>
+<g font-family="Arial, Noto Sans JP, sans-serif" font-size="14" fill="#26354a">
+<rect x="0" y="0" width="1280" height="650" rx="0" fill="#fff" stroke="#dce4ee"/>
+<rect x="0" y="0" width="1280" height="62" rx="0" fill="#175ca5" stroke="none"/>
+<text x="26" y="39" font-size="17" fill="#fff">入館証発行管理システム</text>
+<text x="26" y="112" font-size="22" fill="#26354a">発行状況参照</text>
+<rect x="26" y="138" width="1228" height="108" rx="4" fill="#f5f8fc" stroke="#dce4ee"/>
+<text x="46" y="167" font-size="14" fill="#26354a">氏名・社員番号・入館証番号</text>
+<rect x="46" y="180" width="470" height="44" rx="4" fill="#fff" stroke="#aebdce"/>
+<text x="58" y="207" font-size="14" fill="#627187">例：山田／100001／C000000000000001</text>
+<text x="536" y="167" font-size="14" fill="#26354a">処理状況</text>
+<rect x="536" y="180" width="242" height="44" rx="4" fill="#fff" stroke="#aebdce"/>
+<text x="548" y="207" font-size="14" fill="#26354a">すべて</text>
+<text x="754" y="207" font-size="14" fill="#26354a">▾</text>
+<rect x="798" y="180" width="80" height="44" rx="4" fill="#175ca5" stroke="#175ca5"/>
+<text x="824" y="207" font-size="14" fill="#fff">検索</text>
+<rect x="888" y="180" width="90" height="44" rx="4" fill="#fff" stroke="#175ca5"/>
+<text x="906" y="207" font-size="14" fill="#175ca5">クリア</text>
+<text x="26" y="270" font-size="12" fill="#627187">氏名は部分一致、社員番号・入館証番号は完全一致で検索します。</text>
+<text x="26" y="310" font-size="17" fill="#26354a">発行対象一覧（6件）</text>
+<text x="930" y="310" font-size="12" fill="#627187">受付日時の新しい順／更新日時：日本時間</text>
+<rect x="26" y="326" width="1228" height="276" rx="4" fill="#fff" stroke="#dce4ee"/><rect x="27" y="327" width="1226" height="40" fill="#edf3fa"/><text x="42" y="352">社員番号</text><text x="165" y="352">氏名</text><text x="305" y="352">所属会社名</text><text x="470" y="352">入館証番号</text><text x="690" y="352">処理状況</text><text x="930" y="352">更新日時</text><text x="42" y="392">100006</text><text x="165" y="392">伊藤 葵</text><text x="305" y="392">テスト会社B</text><text x="470" y="392">C000000000000006</text><rect x="690" y="374" width="200" height="26" rx="4" fill="#edf0f4"/><text x="706" y="392" fill="#46566b">入館証発行依頼待ち</text><text x="930" y="392" font-size="13">2026/10/12 12:35:00</text><path d="M27 406H1253" stroke="#e3e9f0"/><text x="42" y="431">100005</text><text x="165" y="431">高橋 健</text><text x="305" y="431">テスト会社A</text><text x="470" y="431">C000000000000005</text><rect x="690" y="413" width="200" height="26" rx="4" fill="#e6f4ed"/><text x="706" y="431" fill="#226745">入館証発行依頼済み</text><text x="930" y="431" font-size="13">2026/10/12 12:34:00</text><path d="M27 445H1253" stroke="#e3e9f0"/><text x="42" y="470">100004</text><text x="165" y="470">鈴木 美咲</text><text x="305" y="470">テスト会社B</text><text x="470" y="470">C000000000000004</text><rect x="690" y="452" width="200" height="26" rx="4" fill="#fdebea"/><text x="706" y="470" fill="#ad3434">入館証発行依頼失敗</text><text x="930" y="470" font-size="13">2026/10/12 12:33:00</text><path d="M27 484H1253" stroke="#e3e9f0"/><text x="42" y="509">100003</text><text x="165" y="509">田中 一郎</text><text x="305" y="509">テスト会社A</text><text x="470" y="509">C000000000000003</text><rect x="690" y="491" width="200" height="26" rx="4" fill="#e6f4ed"/><text x="706" y="509" fill="#226745">入館証発行依頼済み</text><text x="930" y="509" font-size="13">2026/10/12 12:32:00</text><path d="M27 523H1253" stroke="#e3e9f0"/><text x="42" y="548">100002</text><text x="165" y="548">佐藤 花子</text><text x="305" y="548">テスト会社B</text><text x="470" y="548">C000000000000002</text><rect x="690" y="530" width="200" height="26" rx="4" fill="#edf0f4"/><text x="706" y="548" fill="#46566b">入館証発行依頼待ち</text><text x="930" y="548" font-size="13">2026/10/12 12:31:00</text><path d="M27 562H1253" stroke="#e3e9f0"/><text x="42" y="587">100001</text><text x="165" y="587">山田 太郎</text><text x="305" y="587">テスト会社A</text><text x="470" y="587">C000000000000001</text><rect x="690" y="569" width="200" height="26" rx="4" fill="#edf0f4"/><text x="706" y="587" fill="#46566b">入館証発行依頼待ち</text><text x="930" y="587" font-size="13">2026/10/12 12:30:00</text></g></svg>
